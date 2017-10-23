@@ -41,7 +41,7 @@ def pose_callback(data):
 
 def vel_callback(data):
 	global state, R, vel_ok
-	state[1,0] = data.twist.linear.y
+	state[1,0] = -data.twist.linear.y
 	state[3,0] = data.twist.linear.x
 	R[1,1] = data.twist.linear.y ** 2
 	R[3,3] = data.twist.linear.x ** 2
@@ -131,9 +131,12 @@ if __name__ == "__main__":
 					x0, p0 = correct(xx, pp, R, state)
 
 					f.longitude = x0[0,0]
-					f.latitude = x0[2,2]
+					f.latitude = x0[2,0]
+					
+					pose_ok = False
+					vel_ok = False
 			f.status.status = fix
 			kf_pub.publish(f)
 
-	except ROSInterruptException:
+	except rospy.ROSInterruptException:
 		pass
