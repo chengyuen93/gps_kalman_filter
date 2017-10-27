@@ -50,9 +50,10 @@ if __name__ == '__main__':
         driver = libnmea_navsat_driver.driver.RosNMEADriver()
         while not rospy.is_shutdown():
             data = GPS.readline().strip()
+            rospy.loginfo("incoming msg: %s", data)
             try:
-                rospy.loginfo("fix: %s", data[6])
-                rospy.loginfo("num_sat: %s", data[7])
+                # rospy.loginfo("fix: %s", data[6])
+                # rospy.loginfo("num_sat: %s", data[7])
                 driver.add_sentence(data, frame_id)
             except ValueError as e:
                 rospy.logwarn("Value error, likely due to missing fields in the NMEA message. Error was: %s. Please report this issue at github.com/ros-drivers/nmea_navsat_driver, including a bag file with the NMEA sentences that caused it." % e)

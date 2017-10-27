@@ -81,6 +81,7 @@ class RosNMEADriver(object):
         if not self.use_RMC and 'GGA' in parsed_sentence:
             data = parsed_sentence['GGA']
             gps_qual = data['fix_type']
+            rospy.loginfo("fix: %d", gps_qual)
             if gps_qual == 0:
                 current_fix.status.status = NavSatStatus.STATUS_NO_FIX
             elif gps_qual == 1:
