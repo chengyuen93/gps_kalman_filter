@@ -33,7 +33,7 @@ first_time = True
 
 
 def pose_callback(data):
-	global x0, p0, odom_ok
+	global x0, p0, odom_ok, first_time
 	rlon = data.pose.pose.position.x
 	rlat = data.pose.pose.position.y
 	rxvel = data.twist.twist.linear.x
